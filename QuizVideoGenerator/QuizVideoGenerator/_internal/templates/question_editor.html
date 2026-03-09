@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Questions - Quiz Video Generator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #0f172a;
+            color: #f8fafc;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+
+<body class="min-h-screen p-8">
+    <div class="max-w-4xl mx-auto">
+        <header class="mb-8 flex justify-between items-center">
+            <div>
+                <h1 class="text-3xl font-bold text-amber-300">
+                    <i class="fas fa-edit mr-3"></i>Review & Edit Questions
+                </h1>
+                <p class="text-slate-400 mt-1">Make any manual adjustments before we render the video.</p>
+            </div>
+            <a href="/" class="text-blue-400 hover:text-blue-300"><i class="fas fa-arrow-left mr-2"></i>Back</a>
+        </header>
+
+        <form action="/api/render_video" method="POST" id="renderForm">
+            <input type="hidden" name="quiz_id" value="{{ quiz.id }}">
+
+            <div class="space-y-6 mb-8">
+                {% for question in questions %}
+                <div class="glass-panel p-6 rounded-xl relative group">
+                    <div class="absolute top-4 right-4 text-slate-500 font-bold">#{{ loop.index }}</div>
+
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-slate-400 mb-1">Question Text</label>
+                        <input type="text" name="q_{{ question.id }}_text" value="{{ question.question_text }}"
+                            class="w-full bg-slate-800 border border-slate-600 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-amber-500">
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-400 mb-1">Option A</label>
+                            <input type="text" name="q_{{ question.id }}_a" value="{{ question.option_a }}"
+                                class="w-full bg-slate-800 border border-slate-600 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-amber-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-400 mb-1">Option B</label>
+                            <input type="text" name="q_{{ question.id }}_b" value="{{ question.option_b }}"
+                                class="w-full bg-slate-800 border border-slate-600 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-amber-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-400 mb-1">Option C</label>
+                            <input type="text" name="q_{{ question.id }}_c" value="{{ question.option_c }}"
+                                class="w-full bg-slate-800 border border-slate-600 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-amber-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-400 mb-1">Option D</label>
+                            <input type="text" name="q_{{ question.id }}_d" value="{{ question.option_d }}"
+                                class="w-full bg-slate-800 border border-slate-600 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-amber-500">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-slate-400 mb-1">Correct Answer Letter</label>
+                        <select name="q_{{ question.id }}_ans"
+                            class="w-32 bg-slate-800 border border-slate-600 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-amber-500">
+                            <option value="A" {% if question.correct_answer=='A' %}selected{% endif %}>A</option>
+                            <option value="B" {% if question.correct_answer=='B' %}selected{% endif %}>B</option>
+                            <option value="C" {% if question.correct_answer=='C' %}selected{% endif %}>C</option>
+                            <option value="D" {% if question.correct_answer=='D' %}selected{% endif %}>D</option>
+                        </select>
+                    </div>
+                </div>
+                {% endplusfor %}
+            </div>
+
+            <div class="glass-panel p-6 rounded-xl flex items-center justify-between sticky bottom-4 shadow-2xl z-50">
+                <div class="text-slate-300">
+                    <p class="font-bold">Next Step: 🎬 Video Rendering</p>
+                    <p class="text-sm opacity-75">This will compile MoviePy, TTS, and overlays (may take a minute).</p>
+                </div>
+                <!-- Need to also send generation settings over -->
+                <button type="submit"
+                    class="bg-gradient-to-r from-red-600 to-amber-600 hover:from-amber-600 hover:to-amber-500 text-white font-bold py-4 px-8 rounded-xl shadow-lg transform transition hover:scale-105">
+                    Generate Quiz Video Now <i class="fas fa-film ml-2"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>

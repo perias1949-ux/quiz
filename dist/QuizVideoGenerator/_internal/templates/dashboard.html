@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Video Generator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #0f172a;
+            color: #f8fafc;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+
+<body class="min-h-screen p-8">
+    <div class="max-w-6xl mx-auto">
+        <header class="flex items-center justify-between mb-12">
+            <div>
+                <h1
+                    class="text-4xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-emerald-400">
+                    <i class="fas fa-play-circle mr-3"></i>Quiz Video Generator
+                </h1>
+                <p class="text-slate-400 mt-2">Automated AI Video Construction Pipeline</p>
+            </div>
+            <div>
+                <a href="/channel"
+                    class="bg-red-600 hover:bg-red-500 text-white font-bold py-2 px-6 rounded-full shadow-lg transform transition hover:scale-105 flex items-center gap-2">
+                    <i class="fab fa-youtube text-xl"></i> View Channel
+                </a>
+            </div>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+            <!-- Input Section -->
+            <div class="glass-panel rounded-2xl p-6 shadow-2xl">
+                <h2 class="text-2xl font-bold mb-6 text-blue-300 border-b border-slate-700 pb-3">
+                    <i class="fas fa-link mr-2"></i>1. Source Extraction
+                </h2>
+
+                <form id="extractionForm" action="/api/extract" method="POST" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-slate-400 mb-1">Source URL 1</label>
+                        <input type="url" name="url1"
+                            class="w-full bg-slate-800 border border-slate-600 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+                            placeholder="https://example.com/article" required>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-400 mb-1">Source URL 2 (Optional)</label>
+                        <input type="url" name="url2"
+                            class="w-full bg-slate-800 border border-slate-600 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-400 mb-1">Source URL 3 (Optional)</label>
+                        <input type="url" name="url3"
+                            class="w-full bg-slate-800 border border-slate-600 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
+                    </div>
+
+                    <button type="submit"
+                        class="w-full bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white font-bold py-3 px-4 rounded-lg shadow-lg transform transition hover:-translate-y-0.5 mt-4">
+                        Extract Content & Generate Topics <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Settings Section -->
+            <div class="glass-panel rounded-2xl p-6 shadow-2xl">
+                <h2 class="text-2xl font-bold mb-6 text-emerald-300 border-b border-slate-700 pb-3">
+                    <i class="fas fa-sliders-h mr-2"></i>2. Quiz Settings
+                </h2>
+
+                <form id="settingsForm" action="/api/generate_questions" method="POST" class="space-y-6">
+                    <input type="hidden" name="article_id" id="article_id">
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-400 mb-1">Target Topic</label>
+                            <select name="topic" id="topic_select"
+                                class="w-full bg-slate-800 border border-slate-600 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                                <option value="">--- Await Extraction ---</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-400 mb-1">Questions (Max 20)</label>
+                            <input type="number" name="num_questions" value="20" min="1" max="20"
+                                class="w-full bg-slate-800 border border-slate-600 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                        </div>
+                    </div>
+
+                    <div class="space-y-3 bg-slate-800 p-4 rounded-lg border border-slate-700">
+                        <label class="flex items-center space-x-3 cursor-pointer">
+                            <input type="checkbox" name="voice_narrator" checked
+                                class="form-checkbox h-5 w-5 text-emerald-500 rounded bg-slate-900 border-slate-600 focus:ring-emerald-500 focus:ring-offset-slate-800">
+                            <span class="text-slate-300">Enable AI Voice Narration (Quiz Host)</span>
+                        </label>
+                        <label class="flex items-center space-x-3 cursor-pointer">
+                            <input type="checkbox" name="gen_thumbnail" checked
+                                class="form-checkbox h-5 w-5 text-emerald-500 rounded bg-slate-900 border-slate-600 focus:ring-emerald-500 focus:ring-offset-slate-800">
+                            <span class="text-slate-300">Enable Thumbnail Generation</span>
+                        </label>
+                        <label class="flex items-center space-x-3 cursor-pointer">
+                            <input type="checkbox" name="gen_shorts" checked
+                                class="form-checkbox h-5 w-5 text-emerald-500 rounded bg-slate-900 border-slate-600 focus:ring-emerald-500 focus:ring-offset-slate-800">
+                            <span class="text-slate-300">Enable Shorts Generation</span>
+                        </label>
+                        <label class="flex items-center space-x-3 cursor-pointer">
+                            <input type="checkbox" name="enable_score" checked
+                                class="form-checkbox h-5 w-5 text-emerald-500 rounded bg-slate-900 border-slate-600 focus:ring-emerald-500 focus:ring-offset-slate-800">
+                            <span class="text-slate-300">Enable Live Score Tracker</span>
+                        </label>
+                        <label class="flex items-center space-x-3 cursor-pointer">
+                            <input type="checkbox" name="gen_seo" checked
+                                class="form-checkbox h-5 w-5 text-emerald-500 rounded bg-slate-900 border-slate-600 focus:ring-emerald-500 focus:ring-offset-slate-800">
+                            <span class="text-slate-300">Enable SEO Metadata Generation</span>
+                        </label>
+                        <label class="flex items-center space-x-3 cursor-pointer">
+                            <input type="checkbox" name="enable_disclaimer" checked
+                                class="form-checkbox h-5 w-5 text-emerald-500 rounded bg-slate-900 border-slate-600 focus:ring-emerald-500 focus:ring-offset-slate-800">
+                            <span class="text-slate-300">Include Educational Disclaimer Intro</span>
+                        </label>
+                    </div>
+
+                    <button type="submit" id="generateQuestionsBtn" disabled
+                        class="w-full bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white font-bold py-3 px-4 rounded-lg shadow-lg transform transition disabled:opacity-50 disabled:cursor-not-allowed">
+                        Generate Questions Matrix <i class="fas fa-cogs ml-2"></i>
+                    </button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+
+    <script>
+        document.getElementById('extractionForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const form = e.target;
+            const btn = form.querySelector('button');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Extracting...';
+            btn.disabled = true;
+
+            try {
+                const formData = new FormData(form);
+                const res = await fetch(form.action, { method: 'POST', body: formData });
+                const data = await res.json();
+
+                document.getElementById('article_id').value = data.article_id;
+                const select = document.getElementById('topic_select');
+                select.innerHTML = '';
+                data.topics.forEach(t => {
+                    select.innerHTML += `<option value="${t}">${t}</option>`;
+                });
+
+                document.getElementById('generateQuestionsBtn').disabled = false;
+                btn.innerHTML = '<i class="fas fa-check mr-2"></i>Extracted!';
+                btn.classList.add('from-emerald-600', 'to-emerald-500');
+            } catch (err) {
+                console.error(err);
+                btn.innerHTML = '<i class="fas fa-times mr-2"></i>Failed';
+            } finally {
+                setTimeout(() => {
+                    btn.disabled = false;
+                    if (btn.innerHTML.includes('Failed')) btn.innerHTML = originalText;
+                }, 3000);
+            }
+        });
+    </script>
+</body>
+
+</html>
