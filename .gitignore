@@ -1,0 +1,11 @@
+venv/
+__pycache__/
+*.pyc
+.env
+quiz.db
+output/
+audio/
+thumbnails/
+metadata/
+shorts/
+.DS_Store

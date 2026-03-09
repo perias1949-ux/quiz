@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuizGenius Channel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #0f0f0f;
+            color: #f1f1f1;
+            font-family: 'Roboto', 'Arial', sans-serif;
+        }
+
+        .yt-nav {
+            background-color: rgba(15, 15, 15, 0.95);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid #272727;
+        }
+
+        .yt-search {
+            background-color: #121212;
+            border: 1px solid #303030;
+        }
+
+        .yt-banner {
+            height: 200px;
+            background: linear-gradient(135deg, #1e3a8a 0%, #064e3b 100%);
+            background-size: cover;
+            background-position: center;
+            border-radius: 12px;
+        }
+
+        .thumbnail-container {
+            aspect-ratio: 16/9;
+            background-color: #272727;
+            overflow: hidden;
+            border-radius: 12px;
+            transition: transform 0.2s;
+        }
+
+        .thumbnail-container:hover {
+            transform: scale(1.02);
+        }
+
+        .channel-avatar {
+            width: 128px;
+            height: 128px;
+            background: linear-gradient(45deg, #10b981, #3b82f6);
+            border-radius: 50%;
+            border: 4px solid #0f0f0f;
+            margin-top: -64px;
+        }
+
+        .nav-tab {
+            padding: 12px 24px;
+            color: #aaaaaa;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            font-weight: 500;
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+
+        .nav-tab.active {
+            color: #ffffff;
+            border-bottom-color: #f1f1f1;
+        }
+
+        .nav-tab:hover:not(.active) {
+            color: #f1f1f1;
+        }
+
+        .subscribe-btn {
+            background-color: white;
+            color: #0f0f0f;
+            border-radius: 1000px;
+            padding: 10px 16px;
+            font-weight: 500;
+            font-size: 14px;
+            transition: background-color 0.2s;
+        }
+
+        .subscribe-btn:hover {
+            background-color: #e5e5e5;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen pb-12">
+
+    <!-- Navbar -->
+    <nav class="yt-nav fixed w-full top-0 z-50 flex items-center justify-between px-4 h-14">
+        <div class="flex items-center gap-4">
+            <button class="text-white hover:bg-[#272727] p-2 rounded-full w-10 h-10 flex items-center justify-center"><i
+                    class="fas fa-bars text-lg"></i></button>
+            <a href="/" class="flex items-center gap-1 group">
+                <i class="fab fa-youtube text-red-600 text-3xl"></i>
+                <span class="text-xl font-bold tracking-tighter">Quiz<span
+                        class="font-normal text-white">Genius</span></span>
+            </a>
+        </div>
+        <div class="flex-1 max-w-2xl px-4 hidden md:flex items-center gap-2">
+            <div class="flex flex-1 yt-search rounded-full overflow-hidden h-10">
+                <input type="text" placeholder="Search"
+                    class="flex-1 bg-transparent px-4 py-2 outline-none text-white focus:ml-8 transition-all">
+                <button class="bg-[#222222] px-5 hover:bg-[#303030] border-l border-[#303030]"><i
+                        class="fas fa-search"></i></button>
+            </div>
+            <button class="bg-[#181818] hover:bg-[#303030] w-10 h-10 rounded-full flex items-center justify-center"><i
+                    class="fas fa-microphone"></i></button>
+        </div>
+        <div class="flex items-center gap-2">
+            <a href="/"
+                class="text-white bg-[#272727] hover:bg-[#3f3f3f] px-4 py-2 rounded-full text-sm font-medium mr-2 flex items-center gap-2">
+                <i class="fas fa-cogs"></i> Dashboard
+            </a>
+            <button class="text-white hover:bg-[#272727] w-10 h-10 rounded-full"><i class="fas fa-video"></i></button>
+            <button class="text-white hover:bg-[#272727] w-10 h-10 rounded-full"><i class="far fa-bell"></i></button>
+            <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-emerald-400 to-blue-500 ml-2"></div>
+        </div>
+    </nav>
+
+    <!-- Content -->
+    <div class="pt-14 px-4 sm:px-8 max-w-[1600px] mx-auto">
+        <!-- Banner -->
+        <div class="yt-banner w-full mt-4 flex items-center justify-center relative overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1557682250-33bd709cbe85?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80"
+                class="absolute inset-0 w-full h-full object-cover opacity-60 mix-blend-overlay">
+            <h1 class="text-5xl font-black text-white z-10 tracking-widest uppercase drop-shadow-2xl">ONLY GENIUSES
+                SCORE 20/20</h1>
+        </div>
+
+        <!-- Channel Info Header -->
+        <div class="flex flex-col md:flex-row items-center md:items-start gap-6 mt-6 px-4">
+            <div class="channel-avatar flex-shrink-0 z-10 flex items-center justify-center shadow-2xl">
+                <i class="fas fa-brain text-5xl text-white"></i>
+            </div>
+            <div class="flex-1 text-center md:text-left pt-2">
+                <h2 class="text-3xl font-bold mb-1">QuizGenius AI</h2>
+                <div class="text-[#aaaaaa] text-sm flex flex-col sm:flex-row items-center gap-1 sm:gap-2 mb-2">
+                    <span class="font-medium text-white">@QuizGeniusAI</span>
+                    <span class="hidden sm:inline">•</span>
+                    <span>1.2M subscribers</span>
+                    <span class="hidden sm:inline">•</span>
+                    <span>{{ videos|length }} videos</span>
+                </div>
+                <p class="text-[#aaaaaa] text-sm max-w-lg mx-auto md:mx-0 truncate">We generate perfectly grounded,
+                    highly engaging 20-question quizzes for geniuses like you to test your knowledge.</p>
+                <div class="mt-4 flex flex-wrap gap-2 justify-center md:justify-start">
+                    <button class="subscribe-btn">Subscribe</button>
+                    <button
+                        class="bg-[#272727] hover:bg-[#3f3f3f] text-white px-4 py-2 rounded-full font-medium text-sm transition-colors">Join</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="flex border-b border-[#272727] mt-8 overflow-x-auto no-scrollbar px-4">
+            <div class="nav-tab active">Home</div>
+            <div class="nav-tab">Videos</div>
+            <div class="nav-tab">Shorts</div>
+            <div class="nav-tab">Playlists</div>
+            <div class="nav-tab">Community</div>
+        </div>
+
+        <!-- Videos Grid -->
+        <div class="mt-8 px-4">
+            <h3 class="text-lg font-bold mb-4">Latest Quizzes</h3>
+
+            {% if videos|length == 0 %}
+            <div class="text-center py-20 text-[#aaaaaa]">
+                <i class="fas fa-video-slash text-5xl mb-4 opacity-50"></i>
+                <p class="text-xl font-medium text-white mb-2">No videos generated yet</p>
+                <p>Go to the Dashboard to create your first quiz video!</p>
+                <a href="/"
+                    class="inline-block mt-4 bg-blue-600 hover:bg-blue-500 text-white px-6 py-2 rounded-full font-medium transition">Dashboard</a>
+            </div>
+            {% else %}
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-8">
+                {% for video in videos %}
+                <div class="flex flex-col cursor-pointer group">
+                    <div class="thumbnail-container relative mb-3">
+                        <img src="/{{ video.thumbnail_path }}" class="w-full h-full object-cover">
+                        <!-- Duration badge -->
+                        <div
+                            class="absolute bottom-1 right-1 bg-black/80 px-1 rounded text-xs font-medium text-white tracking-wider">
+                            4:18
+                        </div>
+                    </div>
+                    <div class="flex gap-3 pr-6">
+                        <div
+                            class="w-9 h-9 flex-shrink-0 rounded-full bg-gradient-to-tr from-emerald-400 to-blue-500 flex items-center justify-center mt-1">
+                            <i class="fas fa-brain text-white text-xs"></i>
+                        </div>
+                        <div class="flex flex-col">
+                            <h4
+                                class="text-sm font-medium text-white line-clamp-2 leading-tight group-hover:text-blue-400 transition-colors">
+                                {{ video.quiz.title }} Quiz | Can You Score 20/20?
+                            </h4>
+                            <span class="text-xs text-[#aaaaaa] mt-1 hover:text-white transition">QuizGenius AI <i
+                                    class="fas fa-check-circle text-[10px] ml-1"></i></span>
+                            <span class="text-xs text-[#aaaaaa]">124K views • Just now</span>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+
+        {% if videos|length > 0 %}
+        <!-- Shorts Shelf -->
+        <div class="mt-12 px-4">
+            <div class="flex items-center gap-2 mb-6">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Youtube_shorts_icon.svg/400px-Youtube_shorts_icon.svg.png"
+                    class="w-6 h-6">
+                <h3 class="text-xl font-bold">Shorts</h3>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-7 gap-4">
+                {% for video in videos %}
+                <div class="flex flex-col cursor-pointer group">
+                    <div class="aspect-[9/16] bg-[#272727] rounded-xl overflow-hidden relative mb-2">
+                        <!-- Normally we'd use a thumbnail from the short, but we'll reuse the background -->
+                        <video muted loop playsinline onmouseover="this.play()"
+                            onmouseout="this.pause();this.currentTime=0;" class="w-full h-full object-cover">
+                            <source src="/shorts/short_{{ video.quiz.id }}.mp4" type="video/mp4">
+                        </video>
+                        <div class="absolute bottom-2 left-2 text-white text-sm font-medium drop-shadow-md">
+                            1.1M views
+                        </div>
+                    </div>
+                    <h4 class="text-sm font-medium text-white line-clamp-2 leading-tight">
+                        {{ video.quiz.title }} #shorts #quiz
+                    </h4>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+</body>
+
+</html>

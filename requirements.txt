@@ -1,0 +1,16 @@
+fastapi
+uvicorn
+jinja2
+sqlalchemy
+moviepy
+ffmpeg-python
+pillow
+requests
+beautifulsoup4
+readability-lxml
+google-genai
+python-dotenv
+python-multipart
+psycopg2-binary
+pydantic
+pydantic-settings
